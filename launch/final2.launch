@@ -1,0 +1,47 @@
+<!--
+  Used for visualising rplidar in action.
+
+  It requires rplidar.launch.
+ -->
+<launch>
+  <!-- rplidarNode to pub /scan -->
+  <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+
+  <!-- hector_mapping node to sub /scan and pub /map -->
+  <include file="$(find rplidar_ros)/launch/hectormapping.launch" />
+
+
+  <!-- amcl for localizatoin?  NO NEED-->
+  <!-- Localization -->
+  <!-- <arg name="initial_pose_x" default="5.0"/>
+  <arg name="initial_pose_y" default="0.0"/>
+  <arg name="initial_pose_a" default="-2.0"/>
+  <arg name="custom_amcl_launch_file" default="$(find navigation_sim_demo)/launch/include/robot_amcl.launch.xml"/> 
+
+  <include file="$(arg custom_amcl_launch_file)">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include> -->
+
+  <!-- move_base to sub /map and pub /cmd_vel -->
+ <include file="$(find mobilerobots_finalproject)/launch/move_base.launch.xml"/>
+
+  <!-- rviz visualization & send nav goals -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rplidar_ros)/rviz/slam.rviz" />
+  <!-- We can don't use rviz if we don't want -->
+  <!-- For now, I suggest we use it for visualization. XD -->
+
+
+  <!-- This is for random navigation -->
+  <!-- Start the navigation test -->  
+  <!-- <node pkg="rbx1_nav" type="nav_test.py" name="nav_test" output="screen">   -->
+  <!-- <node pkg="mobilerobots_finalproject" type="nav_test.py" name="nav_test" output="screen">  
+    <param name="rest_time" value="1" />  
+    <param name="fake_test" value="true" />  
+  </node> -->
+
+
+
+
+</launch>

@@ -1,0 +1,21 @@
+<launch>
+    <!-- <param name="/print_frq" type="double" value="2.0" /> -->
+    <arg name="output" value = "screen"/>
+    
+    <!-- rosserial noce -->
+    <node name = "serial_node"  pkg="rosserial_python" type="serial_node.py" output="$(arg output)">
+        <param name="port" value="/dev/ttyACM0" />
+    </node>
+    
+    <!-- rplidar_ros node & hector_slam -->
+    <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+    <include file="$(find rplidar_ros)/launch/hectormapping.launch" />
+  
+    <!-- rviz node -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rplidar_ros)/rviz/slam.rviz" />
+
+    
+    <!-- rpi node for sub /scan and pub /cmd_vel -->
+    <node name="RPi" pkg="mobilerobots_finalproject" type="rpi_node" output= "$(arg output)" />
+
+</launch>
