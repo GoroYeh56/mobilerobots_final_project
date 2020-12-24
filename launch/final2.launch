@@ -29,10 +29,6 @@
  <include file="$(find mobilerobots_finalproject)/launch/move_base.launch.xml"/>
 
 
-  <!-- rosserial_python -->
-  <node pkg="rosserial_python" type="serial_node.py" name="serial_arduino">
-    <param name="port" value="/dev/ttyACM0" />
-  </node>
   <!-- <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist" />  -->
 
 
